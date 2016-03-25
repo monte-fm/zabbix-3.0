@@ -1,6 +1,5 @@
 FROM      ubuntu
 MAINTAINER Olexander Vdovychenko <farmazin@gmail.com>
-MAINTAINER Olexander Kutsenko    <olexander.kutsenko@gmail.com>
 
 #install Software
 RUN apt-get update && apt-get upgrade -y
@@ -11,7 +10,17 @@ RUN apt-get install -y vim nano mc screen curl unzip wget tmux
 RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
 RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
 RUN sudo apt-get  install -y mysql-server mysql-client
+
+#Install Zabbix
 RUN apt-get install zabbix-server-mysql zabbix-frontend-php
+
+#Create Database
+RUN cd /usr/share/doc/zabbix-server-mysql
+RUN gzip -d create.sql.gz
+RUN echo "create database zabbix" | mysql -uroot -proot
+RUN mysql -u root -p root -h localhost zabbix < create.sql
+
+
 
 # SSH service
 RUN sudo apt-get install -y openssh-server openssh-client
@@ -41,4 +50,4 @@ RUN chmod +x /root/etckeeper.sh
 RUN /root/etckeeper.sh
 
 #open ports
-EXPOSE 22 445
+EXPOSE 22
