@@ -15,10 +15,10 @@ RUN sudo apt-get  install -y mysql-server mysql-client
 RUN apt-get install -y zabbix-server-mysql zabbix-frontend-php
 
 #Create Database
-RUN cd /usr/share/doc/zabbix-server-mysql
-RUN gzip -d create.sql.gz
-RUN echo "create database zabbix" | mysql -uroot -proot
-RUN mysql -u root -p root -h localhost zabbix < create.sql
+#RUN cd /usr/share/doc/zabbix-server-mysql
+#RUN gzip -d create.sql.gz
+#RUN echo "create database zabbix" | mysql -uroot -proot
+#RUN mysql -u root -p root -h localhost zabbix < create.sql
 
 
 
