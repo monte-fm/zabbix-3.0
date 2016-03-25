@@ -12,7 +12,7 @@ RUN echo "mysql-server mysql-server/root_password_again password root" | debconf
 RUN sudo apt-get  install -y mysql-server mysql-client
 
 #Install Zabbix
-RUN apt-get install zabbix-server-mysql zabbix-frontend-php
+RUN apt-get install -y zabbix-server-mysql zabbix-frontend-php
 
 #Create Database
 RUN cd /usr/share/doc/zabbix-server-mysql
