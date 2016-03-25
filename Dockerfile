@@ -4,7 +4,7 @@ MAINTAINER Olexander Vdovychenko <farmazin@gmail.com>
 #install Software
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y software-properties-common python-software-properties
-RUN apt-get install -y vim nano mc screen curl unzip wget tmux
+RUN apt-get install -y vim nano mc screen curl unzip wget tmux zip
 
 #MySQL install + password
 RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
@@ -15,9 +15,9 @@ RUN sudo apt-get  install -y mysql-server mysql-client
 RUN apt-get install -y zabbix-server-mysql zabbix-frontend-php
 
 #Create Database
-RUN gzip -d /usr/share/zabbix-server-mysql/images.sql.gz
-RUN gzip -d /usr/share/zabbix-server-mysql/create.sql.gz
-RUN gzip -d /usr/share/zabbix-server-mysql/data.sql.gz
+RUN gunzip -d /usr/share/zabbix-server-mysql/images.sql.gz
+RUN gunzip -d /usr/share/zabbix-server-mysql/create.sql.gz
+RUN gunzip -d /usr/share/zabbix-server-mysql/data.sql.gz
 RUN echo "create database zabbix" | mysql -uroot -proot
 RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/create.sql
 RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/images.sql
