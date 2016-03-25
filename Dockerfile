@@ -16,7 +16,9 @@ RUN apt-get install -y zabbix-server-mysql zabbix-frontend-php
 
 #Create Database
 RUN cd /usr/share/zabbix-server-mysql
-RUN gzip -d *.sql.gz
+RUN gzip -d images.sql.gz
+RUN gzip -d create.sql.gz
+RUN gzip -d data.sql.gz
 RUN echo "create database zabbix" | mysql -uroot -proot
 RUN mysql -u root -p root zabbix < create.sql
 RUN mysql -u root -p root zabbix < images.sql

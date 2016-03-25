@@ -1,3 +1,4 @@
 #!/bin/bash
 service ssh start
-service zabbix-server start
+service mysql start
+/etc/init.d/zabbix-server start
