@@ -15,12 +15,12 @@ RUN sudo apt-get  install -y mysql-server mysql-client
 RUN apt-get install -y zabbix-server-mysql zabbix-frontend-php
 
 #Create Database
-#RUN cd /usr/share/doc/zabbix-server-mysql
-#RUN gzip -d create.sql.gz
-#RUN echo "create database zabbix" | mysql -uroot -proot
-#RUN mysql -u root -p root -h localhost zabbix < create.sql
-
-
+RUN cd /usr/share/zabbix-server-mysql
+RUN gzip -d *.sql.gz
+RUN echo "create database zabbix" | mysql -uroot -proot
+RUN mysql -u root -p root zabbix < create.sql
+RUN mysql -u root -p root zabbix < images.sql
+RUN mysql -u root -p root zabbix < data.sql
 
 # SSH service
 RUN sudo apt-get install -y openssh-server openssh-client
