@@ -11,6 +11,7 @@ RUN apt-get install -y vim nano mc screen curl unzip wget tmux
 RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
 RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
 RUN sudo apt-get  install -y mysql-server mysql-client
+RUN apt-get install zabbix-server-mysql zabbix-frontend-php
 
 # SSH service
 RUN sudo apt-get install -y openssh-server openssh-client
@@ -28,7 +29,7 @@ COPY configs/autostart.sh /root/autostart.sh
 RUN chmod +x /root/autostart.sh
 COPY configs/bash.bashrc /etc/bash.bashrc
 
-#Add colorful command line
+#Add colorful commandg line
 RUN echo "force_color_prompt=yes" >> .bashrc
 RUN echo "export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;33m\]@\[\033[01;36m\]\h \[\033[01;33m\]\w \[\033[01;35m\]\$ \[\033[00m\]'" >> .bashrc
 
