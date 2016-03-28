@@ -1,3 +1,9 @@
+# Zabbix Web login
+```
+User: Admin
+password: zabbix
+```
+
 # Create container
 ```
 docker run -it -d --name=zabbix -h=zabbix -p 1080:80 -p 1022:22 -p 10051:10051 cristo/zabbix /bin/bash
