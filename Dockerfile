@@ -10,6 +10,7 @@ RUN apt-get install -y vim nano mc screen curl unzip wget tmux zip gzip
 RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
 RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
 RUN sudo apt-get  install -y mysql-server mysql-client
+COPY configs/mysql/my.cnf /etc/mysql/my.cnf
 RUN echo "create database zabbix;" | mysql -uroot -proot
 RUN echo "CREATE USER 'zabbix'@'%' IDENTIFIED BY 'zabbix';" | mysql -uroot -proot
 RUN echo "GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%';" | mysql -uroot -proot
@@ -49,9 +50,9 @@ RUN chmod +x /root/etckeeper.sh
 RUN /root/etckeeper.sh
 
 #Create Database
-RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/schema.sql
-RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/images.sql
-RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/data.sql
+RUN mysql -uzabbix -pzabbix zabbix < /usr/share/zabbix-server-mysql/schema.sql
+RUN mysql -uzabbix -pzabbix zabbix < /usr/share/zabbix-server-mysql/images.sql
+RUN mysql -uzabbix -pzabbix zabbix < /usr/share/zabbix-server-mysql/data.sql
 
 
 #open ports
