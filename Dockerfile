@@ -18,10 +18,10 @@ RUN apt-get install -y zabbix-server-mysql zabbix-frontend-php
 COPY configs/sql/images.sql /usr/share/zabbix-server-mysql/
 COPY configs/sql/schema.sql /usr/share/zabbix-server-mysql/
 COPY configs/sql/data.sql /usr/share/zabbix-server-mysql/
-RUN mysql -u root -p root -e "CREATE DATABASE zabbix"
-RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/schema.sql
-RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/images.sql
-RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/data.sql
+#RUN mysql -u root -p root -e "CREATE DATABASE zabbix"
+#RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/schema.sql
+#RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/images.sql
+#RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/data.sql
 
 # SSH service
 RUN sudo apt-get install -y openssh-server openssh-client
