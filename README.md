@@ -4,6 +4,19 @@ User: Admin
 password: zabbix
 ```
 
+# Zabbix agent config
+```
+PidFile=/var/run/zabbix/zabbix_agentd.pid
+LogFile=/var/log/zabbix/zabbix_agentd.log
+LogFileSize=0
+
+Server=<server_name>
+ListenPort=10050
+
+Hostname=zabbix-agent-server
+Include=/etc/zabbix/zabbix_agentd.d/
+```
+
 # Create container
 ```
 docker run -it -d --name=zabbix -h=zabbix -p 1080:80 -p 1022:22 -p 10051:10051 cristo/zabbix /bin/bash
