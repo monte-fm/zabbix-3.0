@@ -10,15 +10,16 @@ RUN apt-get install -y vim nano mc screen curl unzip wget tmux zip gzip
 RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
 RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
 RUN sudo apt-get  install -y mysql-server mysql-client
+RUN echo "create database zabbix;" | mysql -uroot -proot
+RUN echo "CREATE USER 'zabbix'@'%' IDENTIFIED BY 'zabbix';" | mysql -uroot -proot
+RUN echo "GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%';" | mysql -uroot -proot
 
 #Install Zabbix
+RUN wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb
+RUN chmod +x zabbix-release_3.0-1+trusty_all.deb
+RUN dpkg -i zabbix-release_3.0-1+trusty_all.deb
+RUN apt-get update
 RUN apt-get install -y zabbix-server-mysql zabbix-frontend-php
-
-#Create Database
-RUN mysql -uroot -proot -e "create database zabbix"
-RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/schema.sql
-RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/images.sql
-RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/data.sql
 
 # SSH service
 RUN sudo apt-get install -y openssh-server openssh-client
@@ -46,6 +47,12 @@ COPY configs/etckeeper.sh /root
 COPY configs/files/etckeeper-hook.sh /root/etckeeper
 RUN chmod +x /root/etckeeper.sh
 RUN /root/etckeeper.sh
+
+#Create Database
+RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/schema.sql
+RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/images.sql
+RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/data.sql
+
 
 #open ports
 EXPOSE 22 80 10051
