@@ -16,10 +16,10 @@ RUN apt-get install -y zabbix-server-mysql zabbix-frontend-php
 
 #Create Database
 COPY configs/sql/images.sql /usr/share/zabbix-server-mysql/
-COPY configs/sql/create.sql /usr/share/zabbix-server-mysql/
+COPY configs/sql/schema.sql /usr/share/zabbix-server-mysql/
 COPY configs/sql/data.sql /usr/share/zabbix-server-mysql/
 RUN echo "create database zabbix" | mysql -uroot -proot
-RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/create.sql
+RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/schema.sql
 RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/images.sql
 RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/data.sql
 
