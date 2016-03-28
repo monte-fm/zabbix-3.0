@@ -1,10 +1,10 @@
 FROM      ubuntu
-MAINTAINER Olexander Vdovychenko <farmazin@gmail.com>
+MAINTAINER Olexander Kutsenko    <olexander.kutsenko@gmail.com>
 
 #install Software
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y software-properties-common python-software-properties
-RUN apt-get install -y vim nano mc screen curl unzip wget tmux zip
+RUN apt-get install -y vim nano mc screen curl unzip wget tmux zip gzip
 
 #MySQL install + password
 RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
@@ -15,13 +15,10 @@ RUN sudo apt-get  install -y mysql-server mysql-client
 RUN apt-get install -y zabbix-server-mysql zabbix-frontend-php
 
 #Create Database
-COPY configs/sql/images.sql /usr/share/zabbix-server-mysql/
-COPY configs/sql/schema.sql /usr/share/zabbix-server-mysql/
-COPY configs/sql/data.sql /usr/share/zabbix-server-mysql/
-#RUN mysql -u root -p root -e "CREATE DATABASE zabbix"
-#RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/schema.sql
-#RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/images.sql
-#RUN mysql -u root -p root zabbix < /usr/share/zabbix-server-mysql/data.sql
+RUN mysql -uroot -proot -e "create database zabbix"
+RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/schema.sql
+RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/images.sql
+RUN mysql -uroot -proot zabbix < /usr/share/zabbix-server-mysql/data.sql
 
 # SSH service
 RUN sudo apt-get install -y openssh-server openssh-client
@@ -51,4 +48,4 @@ RUN chmod +x /root/etckeeper.sh
 RUN /root/etckeeper.sh
 
 #open ports
-EXPOSE 22
+EXPOSE 22 80 10051
