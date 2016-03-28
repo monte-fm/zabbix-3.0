@@ -32,8 +32,8 @@ if [ -d /root/etckeeper ] ; then
 fi
 " >> ~/.bashrc
 
-git config --global user.email "you@example.com"
-git config --global user.name "Symfony2 user"
+git config --global user.email "zabbix@com"
+git config --global user.name "Zabbix user"
 
 cd /etc 
 etckeeper init
