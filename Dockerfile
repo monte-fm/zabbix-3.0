@@ -18,6 +18,8 @@ RUN chmod +x zabbix-release_3.0-1+trusty_all.deb
 RUN dpkg -i zabbix-release_3.0-1+trusty_all.deb
 RUN apt-get update
 RUN apt-get install -y zabbix-server-mysql zabbix-frontend-php
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+COPY configs/php.ini /etc/php5/apache2/php.ini
 
 # SSH service
 RUN sudo apt-get install -y openssh-server openssh-client

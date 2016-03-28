@@ -1,7 +1,6 @@
 #!/bin/bash
 service ssh start
 service mysql start
-service nginx start
 service zabbix-server start
 
 
@@ -46,6 +45,6 @@ echo "
 #!/bin/bash
 service ssh start
 service mysql start
-service nginx start
+service apache2 start
 service zabbix-server start
 " > /root/autostart.sh
