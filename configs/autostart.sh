@@ -8,9 +8,8 @@ service zabbix-server start
 echo "create database zabbix;" | mysql -uroot -proot
 echo "CREATE USER 'zabbix'@'%' IDENTIFIED BY 'zabbix';" | mysql -uroot -proot
 echo "GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%';" | mysql -uroot -proot
-mysql -uzabbix -pzabbix zabbix < /usr/share/zabbix-server-mysql/schema.sql
-mysql -uzabbix -pzabbix zabbix < /usr/share/zabbix-server-mysql/images.sql
-mysql -uzabbix -pzabbix zabbix < /usr/share/zabbix-server-mysql/data.sql
+gzip -d /usr/share/doc/zabbix-server-mysql/create.sql.gz
+mysql -uzabbix -pzabbix zabbix < /usr/share/doc/zabbix-server-mysql/create.sql
 
 #Rewrite autostart
 echo "
