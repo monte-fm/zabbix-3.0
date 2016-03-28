@@ -11,9 +11,6 @@ RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-s
 RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
 RUN sudo apt-get  install -y mysql-server mysql-client
 COPY configs/mysql/my.cnf /etc/mysql/my.cnf
-RUN echo "create database zabbix;" | mysql -uroot -proot
-RUN echo "CREATE USER 'zabbix'@'%' IDENTIFIED BY 'zabbix';" | mysql -uroot -proot
-RUN echo "GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%';" | mysql -uroot -proot
 
 #Install Zabbix
 RUN wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb
@@ -49,11 +46,8 @@ COPY configs/files/etckeeper-hook.sh /root/etckeeper
 RUN chmod +x /root/etckeeper.sh
 RUN /root/etckeeper.sh
 
-#Create Database
-RUN mysql -uzabbix -pzabbix zabbix < /usr/share/zabbix-server-mysql/schema.sql
-RUN mysql -uzabbix -pzabbix zabbix < /usr/share/zabbix-server-mysql/images.sql
-RUN mysql -uzabbix -pzabbix zabbix < /usr/share/zabbix-server-mysql/data.sql
-
+#Create database
+RUN /root/autostart.sh
 
 #open ports
 EXPOSE 22 80 10051
