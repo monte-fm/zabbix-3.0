@@ -11,6 +11,7 @@ RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-s
 RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
 RUN sudo apt-get  install -y mysql-server mysql-client
 COPY configs/mysql/my.cnf /etc/mysql/my.cnf
+COPY configs/mysql/create.sql /home/create.sql
 
 #Install Zabbix
 RUN wget http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb
