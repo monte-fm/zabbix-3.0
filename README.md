@@ -19,7 +19,7 @@ Include=/etc/zabbix/zabbix_agentd.d/
 
 # Create container
 ```
-docker run -it -d --name=zabbix -h=zabbix -p 1080:80 -p 1022:22 -p 10051:10051 cristo/zabbix /bin/bash
+docker run -it -d --name=zabbix -h=zabbix -p 1080:80 -p 1022:22 -p 10051:10051 cristo/zabbix-3.0 /bin/bash
 ```
 
 # MySQL
