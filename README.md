@@ -27,7 +27,12 @@ docker run -it -d --name=zabbix -h=zabbix -p 1080:80 -p 1022:22 -p 10051:10051 c
 user: root 
 password: root
 ```
-
+#MySQL for zabbix
+```
+DB_NAME: zabbix
+DB_USER: zabbix
+DB_PASS: zabbix
+```
 # SSH
 ```
 ssh -p1022 root@localhost
